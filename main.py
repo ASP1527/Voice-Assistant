@@ -13,8 +13,13 @@ import tkinter as tk
 from tkinter import filedialog, Text
 import os
 import config
+
+
 transcribe = []
+
 configured = False
+
+
 if os.path.isfile('config.py'):
     configured = True
 if configured == False:
