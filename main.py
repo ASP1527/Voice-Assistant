@@ -249,6 +249,33 @@ def get_day():
     remove_file()
 
 
+def get_weather_tomorrow():
+    page = requests.get('https://www.bbc.co.uk/weather/2643743')
+    soup = BeautifulSoup(page.content, 'html.parser')
+    # print(soup)
+    info = soup.find_all(class_='wr-value--temperature--c')
+    # print(info)
+    tie = time()
+    timeData = ctime(tie)
+    splitData = timeData.split(" ")
+    times = splitData[3]
+    times = times.split(":")
+    hour = times[0]
+    hour = int(hour)
+    if hour > 17 or hour < 5:
+        high_tomorrow = info[1].get_text()
+        low_tomorrow = info[2].get_text()
+        speak("Tomorrow, there will be a high of " +
+              high_tomorrow + "and a low of " + low_tomorrow)
+        remove_file()
+    else:
+        high_tomorrow = info[2].get_text()
+        low_tomorrow = info[3].get_text()
+        speak("Tomorrow, there will be a high of " +
+              high_tomorrow + "and a low of " + low_tomorrow)
+        remove_file()
+
+
 '''
 end of functions
 '''
@@ -295,6 +322,8 @@ def main_loop():
             get_date()
         elif "day" in text:
             get_day()
+        elif "weather" in text and "tomorrow" in text:
+            get_weather_tomorrow()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
