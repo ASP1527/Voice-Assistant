@@ -119,7 +119,7 @@ def get_weather_today():
     tie = time()
     timeData = ctime(tie)
     splitData = timeData.split(" ")
-    times = splitData[4]
+    times = splitData[3]
     times = times.split(":")
     hour = times[0]
     hour = int(hour)
@@ -162,7 +162,7 @@ def get_time():
     tie = time()
     timeData = ctime(tie)
     splitData = timeData.split(" ")
-    times = splitData[4]
+    times = splitData[3]
     times = times.split(":")
     hour = times[0]
     minutes = times[1]
