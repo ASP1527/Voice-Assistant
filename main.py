@@ -13,6 +13,7 @@ import tkinter as tk
 from tkinter import filedialog, Text
 import os
 import config
+from PyDictionary import PyDictionary
 
 
 transcribe = []
@@ -276,6 +277,54 @@ def get_weather_tomorrow():
         remove_file()
 
 
+def define_word():
+    dictionary = PyDictionary()
+    word = get_audio()
+    definition = dictionary.meaning(word)
+    speak(definition)
+    remove_file()
+
+
+def synonym_of_word():
+    dictionary = PyDictionary()
+    word = get_audio()
+    synonym = dictionary.synonym(word)
+    speak(synonym)
+    remove_file()
+
+
+def antonym_of_word():
+    dictionary = PyDictionary()
+    word = get_audio()
+    antonym = dictionary.antonym(word)
+    speak(antonym)
+    remove_file()
+
+
+def translation():
+    dictionary = PyDictionary()
+    speak("What language would you like to translate to?")
+    remove_file()
+
+    answer = get_audio()
+
+    if "german" in answer or "German" in answer:
+        language = "de"
+    elif "french" in answer or "French" in answer:
+        language = "fr"
+    elif "spanish" in answer or "Spanish" in answer:
+        language = "es"
+    else:
+        speak("I am unable to speak " + answer + " yet")
+
+    text = get_audio()
+
+    translated = dictionary.translate(text, language)
+
+    speak(translated)
+    remove_file()
+
+
 '''
 end of functions
 '''
@@ -324,6 +373,14 @@ def main_loop():
             get_day()
         elif "weather" in text and "tomorrow" in text:
             get_weather_tomorrow()
+        elif "define" in text:
+            define_word()
+        elif "synonym" in text:
+            synonym_of_word()
+        elif "antonym" in text:
+            antonym_of_word()
+        elif "translate" in text:
+            translation()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
