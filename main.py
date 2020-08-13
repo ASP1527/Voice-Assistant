@@ -378,7 +378,7 @@ def main_loop():
             get_day()
         elif "weather" in text and "tomorrow" in text:
             get_weather_tomorrow()
-        elif "define" in text:
+        elif "define" in text or "mean" in text or "meaning" in text:
             define_word()
         elif "synonym" in text:
             synonym_of_word()
