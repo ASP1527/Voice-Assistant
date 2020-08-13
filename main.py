@@ -14,6 +14,7 @@ from tkinter import filedialog, Text
 import os
 import config
 from PyDictionary import PyDictionary
+from translate import Translator
 
 
 transcribe = []
@@ -302,7 +303,6 @@ def antonym_of_word():
 
 
 def translation():
-    dictionary = PyDictionary()
     speak("What language would you like to translate to?")
     remove_file()
 
@@ -317,11 +317,16 @@ def translation():
     else:
         speak("I am unable to speak " + answer + " yet")
 
+    translator = Translator(to_lang=language)
+
+    speak("What would you like to translate?")
+    remove_file()
+
     text = get_audio()
 
-    translated = dictionary.translate(text, language)
+    translation = translator.translate(text)
 
-    speak(translated)
+    speak(translation)
     remove_file()
 
 
