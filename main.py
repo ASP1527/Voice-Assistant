@@ -354,9 +354,10 @@ def calling_assistant():
     randomCall = random.randint(0, len(calls)-1)
     randomC = calls[randomCall]
     while not running_main_loop:
+        print("running")
         text = get_audio()
         #text = "friday"
-        if "friday" in text or "Friday" in text:
+        if "hello" in text or "Hello" in text:
             speak(randomC)
             remove_file()
             running_main_loop = True

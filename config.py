@@ -1,3 +1,3 @@
-email_address = ""
-email_address2 = ""
-email_address3 = ""
+email_address = "amritpanesar100@gmail.com"
+email_address2 = "amritpanesar100@gmail.com"
+email_address3 = "amritpanesar100@gmail.com"
