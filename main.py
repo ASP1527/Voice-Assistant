@@ -15,6 +15,7 @@ import os
 import config
 from PyDictionary import PyDictionary
 from translate import Translator
+import corona
 
 
 transcribe = []
@@ -330,6 +331,13 @@ def translation():
     remove_file()
 
 
+def corona_update():
+    cases = corona.get_cases()
+    deaths = corona.get_deaths()
+    update = "There are", cases, "and", deaths, "deaths"
+    print(update)
+
+
 '''
 end of functions
 '''
@@ -386,6 +394,8 @@ def main_loop():
             antonym_of_word()
         elif "translate" in text:
             translation()
+        elif "corona" in text or "Corona" in text or "virus" in text:
+            corona_update()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
