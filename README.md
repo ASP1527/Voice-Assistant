@@ -2,7 +2,7 @@
 
 Name : Friday
 
-search : Wikipedia search
+search or who is : Wikipedia search
 weather : Weather (today)
 time : time
 news : Top 3 headlines

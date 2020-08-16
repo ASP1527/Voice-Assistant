@@ -368,7 +368,7 @@ def main_loop():
             get_news()
         elif "time" in text:
             get_time()
-        elif "search" in text:
+        elif "search" in text or "who is" in text:
             wiki_search()
         elif "send" in text and "email" in text:
             send_email()
