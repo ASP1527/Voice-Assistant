@@ -88,14 +88,13 @@ def speak(text):
 def get_audio():
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source, duration=0.5)
         audio = r.listen(source)
-        said = ""
-
         try:
             said = r.recognize_google(audio)
             print(said)
-        except Exception as e:
-            print(str(e))
+        except:
+            print("unrecognised")
     return said
 
 
@@ -334,8 +333,9 @@ def translation():
 def corona_update():
     cases = corona.get_cases()
     deaths = corona.get_deaths()
-    update = "There are", cases, "and", deaths, "deaths"
-    print(update)
+    update = ("There are " + cases + " cases and " + deaths + " deaths")
+    speak(update)
+    remove_file()
 
 
 '''
@@ -395,7 +395,7 @@ def main_loop():
             antonym_of_word()
         elif "translate" in text:
             translation()
-        elif "corona" in text or "Corona" in text or "virus" in text:
+        elif "corona" in text or "Corona" in text or "virus" in text or "coronavirus" in text:
             corona_update()
         else:
             speak("I am not sure how to do that at the moment")
