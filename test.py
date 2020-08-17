@@ -14,7 +14,6 @@ import os
 from PyDictionary import PyDictionary
 from translate import Translator
 import corona
+import pyjokes
 
-
-x = corona.get_cases()
-print(x)
+print(pyjokes.get_joke())

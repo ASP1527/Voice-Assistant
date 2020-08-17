@@ -16,6 +16,7 @@ import config
 from PyDictionary import PyDictionary
 from translate import Translator
 import corona
+import pyjokes
 
 
 transcribe = []
@@ -338,6 +339,12 @@ def corona_update():
     remove_file()
 
 
+def tell_joke():
+    joke = pyjokes.get_joke()
+    speak(joke)
+    remove_file()
+
+
 '''
 end of functions
 '''
@@ -397,6 +404,8 @@ def main_loop():
             translation()
         elif "corona" in text or "Corona" in text or "virus" in text or "coronavirus" in text:
             corona_update()
+        elif "joke" in text or "jokes" in text:
+            tell_joke()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
