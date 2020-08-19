@@ -15,5 +15,3 @@ from PyDictionary import PyDictionary
 from translate import Translator
 import corona
 import pyjokes
-
-print(pyjokes.get_joke())

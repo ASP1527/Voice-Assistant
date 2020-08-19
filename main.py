@@ -17,6 +17,7 @@ from PyDictionary import PyDictionary
 from translate import Translator
 import corona
 import pyjokes
+import calculator
 
 
 transcribe = []
@@ -345,6 +346,12 @@ def tell_joke():
     remove_file()
 
 
+def calculate():
+    speak("Opening Calculator.")
+    remove_file()
+    calculator.runCalculator()
+
+
 '''
 end of functions
 '''
@@ -406,6 +413,8 @@ def main_loop():
             corona_update()
         elif "joke" in text or "jokes" in text:
             tell_joke()
+        elif "calculator" in text or "Calculator" in text:
+            calculate()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
