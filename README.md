@@ -13,3 +13,4 @@ meaning or mean or define : Looks up a word
 antonym : Antonyms of a word
 synonym : Synonyms of a word
 translate : Translates a word
+fact : Tells a random fact
