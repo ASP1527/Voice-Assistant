@@ -352,6 +352,17 @@ def calculate():
     calculator.runCalculator()
 
 
+def randomFacts():
+    page = requests.get('http://randomfactgenerator.net/')
+    soup = BeautifulSoup(page.content, 'html.parser')
+    # print(soup)
+    info = soup.find_all(id='z')
+    fact = info[0].get_text()
+    fact = fact.replace('Tweet', '')
+    speak(fact)
+    remove_file()
+
+
 '''
 end of functions
 '''
@@ -415,6 +426,8 @@ def main_loop():
             tell_joke()
         elif "calculator" in text or "Calculator" in text:
             calculate()
+        elif "fact" in text:
+            randomFacts()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
