@@ -32,6 +32,7 @@ def runCalculator():
             operator = ""
             text_input.set("")
 
+    global operator
     operator = ""
 
     text_input = StringVar()
@@ -73,6 +74,8 @@ def runCalculator():
                              pady=5, command=btnEquals)
     buttonDecimal = Button(root, text=".", padx=23, pady=5,
                            command=lambda: btnClick("."))
+    buttonExp = Button(root, text="^", padx=20, pady=5,
+                       command=lambda: btnClick("**"))
 
     button0.grid(row=5, column=0)
     buttonDecimal.grid(row=5, column=1)
@@ -94,7 +97,8 @@ def runCalculator():
     button9.grid(row=2, column=2)
     buttonMultiply.grid(row=2, column=3)
 
-    buttonC.grid(row=1, column=2)
+    buttonC.grid(row=1, column=1)
+    buttonExp.grid(row=1, column=2)
     buttonDivide.grid(row=1, column=3)
 
     root.mainloop()
