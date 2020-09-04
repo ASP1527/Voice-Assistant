@@ -95,9 +95,9 @@ def get_audio():
         try:
             said = r.recognize_google(audio)
             print(said)
+            return said
         except:
             print("unrecognised")
-    return said
 
 
 # Function that removes the voice file from which the assistant speaks from so that it can speak again
@@ -318,6 +318,7 @@ def translation():
         language = "es"
     else:
         speak("I am unable to speak " + answer + " yet")
+        remove_file()
 
     translator = Translator(to_lang=language)
 
