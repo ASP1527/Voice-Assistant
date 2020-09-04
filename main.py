@@ -364,6 +364,53 @@ def randomFacts():
     remove_file()
 
 
+def get_weather_week():
+    page = requests.get('https://www.bbc.co.uk/weather/2643743')
+    soup = BeautifulSoup(page.content, 'html.parser')
+    # print(soup)
+    info = soup.find_all(class_='wr-value--temperature--c')
+    dates = soup.find_all(class_='wr-date__long')
+    today = soup.find_all(class_='wr-date')
+    # print(info)
+    tie = time()
+    timeData = ctime(tie)
+    splitData = timeData.split(" ")
+    times = splitData[3]
+    times = times.split(":")
+    hour = times[0]
+    hour = int(hour)
+    if hour > 17 or hour < 5:
+        for i in range(0, 11):
+            if i == 0:
+                day = today[0].get_text()
+                speak(day)
+                remove_file()
+            elif i % 2 != 0:
+                day = dates[i].get_text()
+                speak(day)
+                remove_file()
+            else:
+                day = day
+            temp = info[i].get_text()
+            speak(temp)
+            remove_file()
+    else:
+        for i in range(0, 11):
+            if i == 0 or i == 1:
+                day = today[0].get_text()
+                speak(day)
+                remove_file()
+            elif i % 2 == 0:
+                day = dates[i].get_text()
+                speak(day)
+                remove_file()
+            else:
+                day = day
+            temp = info[i].get_text()
+            speak(temp)
+            remove_file()
+
+
 '''
 end of functions
 '''
@@ -429,6 +476,8 @@ def main_loop():
             calculate()
         elif "fact" in text:
             randomFacts()
+        elif "weather" in text and "week" in text:
+            get_weather_week()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
