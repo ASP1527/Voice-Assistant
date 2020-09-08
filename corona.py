@@ -2,6 +2,8 @@ import config
 from bs4 import BeautifulSoup
 import requests
 
+# this file scrapes for the cases and deaths in the uk
+
 page = requests.get('https://www.worldometers.info/coronavirus/country/uk/')
 soup = BeautifulSoup(page.content, 'html.parser')
 # print(soup)
