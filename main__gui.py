@@ -10,7 +10,7 @@ import random
 import wikipedia as wiki
 import smtplib
 import tkinter as tk
-from tkinter import filedialog, Text
+from tkinter import *
 import os
 import config
 from PyDictionary import PyDictionary
@@ -19,8 +19,6 @@ import corona
 import pyjokes
 import calculator
 
-
-transcribe = []
 
 configured = False
 
@@ -73,6 +71,19 @@ if configured == False:
         f.write('"')
 
 
+'''
+    gui
+'''
+
+
+root = tk.Tk()
+
+canvas = tk.Canvas(root, height=700, width=800, bg="#008080")
+canvas.pack()
+frame = tk.Frame(root, bg="white")
+frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
+
+
 global calls
 calls = ["Hello, how can I help?", "What can I do for you?", "What's the time? Its time for me to help",
          "How may I help you?", "Who do you call? Me", "000110101 oops I mean what do you need help with?"]
@@ -80,10 +91,43 @@ calls = ["Hello, how can I help?", "What can I do for you?", "What's the time? I
 
 # Function that allows the assistant to speak
 def speak(text):
+    destroyed = False
     tts = gTTS(text=text, lang="en")
     filename = "voice.mp3"
     tts.save(filename)
     playsound.playsound(filename)
+    if os.path.isfile('transcript.txt'):
+        f = open('transcript.txt', 'r')
+        readFile = f.read()
+        transcript = readFile.split('\n')
+        f.close()
+    else:
+        with open('transcript.txt', 'w') as f:
+            print("file made")
+
+    if len(transcript) > 25:
+        for widget in frame.winfo_children():
+            widget.destroy()
+            destroyed = True
+        items_temp = []
+        for i in range(1, 26):
+            items_temp.append(transcript[i])
+        transcript = items_temp
+    transcript.append(text)
+    f = open('transcript.txt', 'w')
+    for i in range(len(transcript)):
+        f.write(transcript[i])
+        f.write('\n')
+    f.close()
+    if destroyed == True:
+        for i in range(len(transcript)):
+            tText = transcript[i]
+            label = tk.Label(frame, text=tText)
+            label.pack()
+    else:
+        label = tk.Label(frame, text=text)
+        label.pack()
+    Tk.update(root)
 
 
 # Function that allows audio from the microphone to be recognised
@@ -428,8 +472,8 @@ def calling_assistant():
     randomC = calls[randomCall]
     while not running_main_loop:
         print("running")
-        text = get_audio()
-        #text = "friday"
+        #text = get_audio()
+        text = "hello"
         if "hello" in text or "Hello" in text:
             speak(randomC)
             remove_file()
@@ -441,8 +485,8 @@ def main_loop():
     running_main_loop = True
     while running_main_loop:
 
-        text = get_audio()
-        #text = "search"
+        #text = get_audio()
+        text = "day"
 
         if "weather" in text:
             get_weather_today()
@@ -487,4 +531,22 @@ def main_loop():
     calling_assistant()
 
 
-calling_assistant()
+# button to run the assistant
+
+
+initialise = tk.Button(root, text="Run", padx=10, pady=5, fg="white",
+                       bg="#C0C0C0", font=('helvetica', 9), command=calling_assistant)
+initialise.pack()
+
+# running the gui
+
+root.mainloop()
+
+# cleanup
+
+f = open('transcript.txt', 'w')
+f.write("")
+f.close()
+
+if os.path.isfile('voice.mp3'):
+    os.remove('voice.mp3')

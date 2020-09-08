@@ -21,6 +21,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+root = tk.Tk()
+
+canvas = tk.Canvas(root, height=700, width=800, bg="#008080")
+canvas.pack()
+frame = tk.Frame(root, bg="white")
+frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
+
 
 def get_weather_week():
     page = requests.get('https://www.bbc.co.uk/weather/2643743')
@@ -41,25 +48,37 @@ def get_weather_week():
         for i in range(0, 11):
             if i == 0:
                 day = today[0].get_text()
-                print(day)
+                label = tk.Label(frame, text=day)
+                label.pack()
             elif i % 2 != 0:
                 day = dates[i].get_text()
-                print(day)
+                label = tk.Label(frame, text=day)
+                label.pack()
             else:
                 day = day
             temp = info[i].get_text()
-            print(temp)
+            label = tk.Label(frame, text=temp)
+            label.pack()
     else:
         for i in range(0, 11):
             if i == 0 or i == 1:
                 day = today[0].get_text()
+                label = tk.Label(frame, text=day)
+                label.pack()
             elif i % 2 == 0:
                 day = dates[i].get_text()
-                print(day)
+                label = tk.Label(frame, text=day)
+                label.pack()
             else:
                 day = day
             temp = info[i].get_text()
-            print(temp)
+            label = tk.Label(frame, text=temp)
+            label.pack()
 
 
-get_weather_week()
+weatherB = tk.Button(root, text="Click", padx=10, pady=5, fg="white",
+                     bg="#C0C0C0", font=('helvetica', 9), command=get_weather_week)
+weatherB.pack()
+
+
+tk.mainloop()
