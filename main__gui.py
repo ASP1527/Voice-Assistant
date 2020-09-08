@@ -409,6 +409,8 @@ def randomFacts():
 
 
 def get_weather_week():
+    temps = []
+    days = []
     page = requests.get('https://www.bbc.co.uk/weather/2643743')
     soup = BeautifulSoup(page.content, 'html.parser')
     # print(soup)
@@ -424,35 +426,79 @@ def get_weather_week():
     hour = times[0]
     hour = int(hour)
     if hour > 17 or hour < 5:
-        for i in range(0, 11):
-            if i == 0:
-                day = today[0].get_text()
-                speak(day)
-                remove_file()
-            elif i % 2 != 0:
-                day = dates[i].get_text()
-                speak(day)
-                remove_file()
-            else:
-                day = day
+        days = ["Today"]
+        for i in range(0, 10):
             temp = info[i].get_text()
-            speak(temp)
-            remove_file()
+            temps.append(temp)
+        for i in range(1, 5):
+            day = dates[i].get_text()
+            days.append(day)
+        speak(days[0])
+        remove_file()
+        speak(temps[0])
+        remove_file()
+        speak(temps[1])
+        remove_file()
+        speak(days[1])
+        remove_file()
+        speak(temps[2])
+        remove_file()
+        speak(temps[3])
+        remove_file()
+        speak(days[2])
+        remove_file()
+        speak(temps[4])
+        remove_file()
+        speak(temps[5])
+        remove_file()
+        speak(days[3])
+        remove_file()
+        speak(temps[6])
+        remove_file()
+        speak(temps[7])
+        remove_file()
+        speak(days[4])
+        remove_file()
+        speak(temps[8])
+        remove_file()
+        speak(temps[9])
+        remove_file()
     else:
-        for i in range(0, 11):
-            if i == 0 or i == 1:
-                day = today[0].get_text()
-                speak(day)
-                remove_file()
-            elif i % 2 == 0:
-                day = dates[i].get_text()
-                speak(day)
-                remove_file()
-            else:
-                day = day
+        days = ["Tonight"]
+        for i in range(0, 9):
             temp = info[i].get_text()
-            speak(temp)
-            remove_file()
+            temps.append(temp)
+        for i in range(1, 5):
+            day = dates[i].get_text()
+            days.append(day)
+        speak(days[0])
+        remove_file()
+        speak(temps[0])
+        remove_file()
+        speak(days[1])
+        remove_file()
+        speak(temps[1])
+        remove_file()
+        speak(temps[2])
+        remove_file()
+        speak(days[2])
+        remove_file()
+        speak(temps[3])
+        remove_file()
+        speak(temps[4])
+        remove_file()
+        speak(days[3])
+        remove_file()
+        speak(temps[5])
+        remove_file()
+        speak(temps[6])
+        remove_file()
+        speak(days[4])
+        remove_file()
+        speak(temps[7])
+        remove_file()
+        speak(temps[8])
+        remove_file()
 
 
 '''
