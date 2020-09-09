@@ -292,6 +292,14 @@ def get_day():
     timeData = ctime(tie)
     splitData = timeData.split(" ")
     day = splitData[0]
+    if day == "Tue":
+        day = "Tues"
+    elif day == "Wed":
+        day = "Wednes"
+    elif day == "Thu":
+        day = "Thurs"
+    elif day == "Sat":
+        day = "Satur"
     today = (day + "day")
     speak(today)
     remove_file()
@@ -507,8 +515,6 @@ end of functions
 
 
 # Running an infinite loop in which the assistant is called when the keyword is said
-global run
-run = False
 
 
 def calling_assistant():
