@@ -429,7 +429,6 @@ def get_weather_week():
     # print(soup)
     info = soup.find_all(class_='wr-value--temperature--c')
     dates = soup.find_all(class_='wr-date__long')
-    today = soup.find_all(class_='wr-date')
     # print(info)
     tie = time()
     timeData = ctime(tie)
@@ -556,7 +555,6 @@ def checkForTimer():
         hour1 = int(hour1)
         minute1 = readfile[1]
         minute1 = int(minute1)
-        alarmTime = hour1, minute1
         tie = time()
         timeData = ctime(tie)
         splitData = timeData.split(" ")
@@ -566,7 +564,6 @@ def checkForTimer():
         minutes = times[1]
         hour = int(hour)
         minutes = int(minutes)
-        totalTime = hour, minutes
         print ("running this check")
         print(minute1)
         print(minutes)
