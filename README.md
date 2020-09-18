@@ -19,3 +19,4 @@ joke : Tells a joke
 calculator : Opens a calculator (made with Tkinter)
 fact : Tells a random fact
 weather & week : Weather for the next 5 days
+timer : sets a timer for a given time
