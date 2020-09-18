@@ -21,8 +21,7 @@ import calculator
 
 
 configured = False
-global alarmCheck
-alarmCheck = False
+
 
 def play50():
     playsound.playsound("50cent.mp3")
@@ -515,7 +514,7 @@ def get_weather_week():
         remove_file()
 
 
-def alarm():
+def timer():
     tie = time()
     timeData = ctime(tie)
     splitData = timeData.split(" ")
@@ -546,7 +545,7 @@ def alarm():
     f.close()
 
 
-def checkForAlarm():
+def checkForTimer():
     if os.path.isfile('alarm.txt'):
         print ("running this check")
         f = open('alarm.txt', 'r')
@@ -590,7 +589,7 @@ def calling_assistant():
     randomCall = random.randint(0, len(calls)-1)
     randomC = calls[randomCall]
     while not running_main_loop:
-        checkForAlarm()
+        checkForTimer()
         print("running")
         #text = get_audio()
         text = "hello"
@@ -604,7 +603,7 @@ def calling_assistant():
 def main_loop():
     running_main_loop = True
     while running_main_loop:
-        checkForAlarm()
+        checkForTimer()
 
         #text = get_audio()
         text = "day"
@@ -643,6 +642,8 @@ def main_loop():
             randomFacts()
         elif "weather" in text and "week" in text:
             get_weather_week()
+        elif "timer" in text:
+            timer()
         else:
             speak("I am not sure how to do that at the moment")
             remove_file()
