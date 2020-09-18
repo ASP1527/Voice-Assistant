@@ -255,6 +255,35 @@ def alarm():
     f.close()
 
 
+def checkForAlarm():
+    if os.path.isfile('alarm.txt'):
+        print ("running this check")
+        f = open('alarm.txt', 'r')
+        readfile = f.read()
+        readfile = readfile.split("\n")
+        f.close()
+        hour1 = readfile[0]
+        hour1 = int(hour1)
+        minute1 = readfile[1]
+        minute1 = int(minute1)
+        alarmTime = hour1, minute1
+        tie = time()
+        timeData = ctime(tie)
+        splitData = timeData.split(" ")
+        times = splitData[3]
+        times = times.split(":")
+        hour = times[0]
+        minutes = times[1]
+        hour = int(hour)
+        minutes = int(minutes)
+        totalTime = hour, minutes
+        print ("running this check")
+        print(minute1)
+        print(minutes)
+        if minute1 == minutes:
+            print ("compared")
+            play50()
+
 
 '''
 end of functions

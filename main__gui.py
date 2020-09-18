@@ -21,6 +21,12 @@ import calculator
 
 
 configured = False
+global alarmCheck
+alarmCheck = False
+
+def play50():
+    playsound.playsound("50cent.mp3")
+    os.remove('alarm.txt')
 
 
 if os.path.isfile('config.py'):
@@ -509,6 +515,67 @@ def get_weather_week():
         remove_file()
 
 
+def alarm():
+    tie = time()
+    timeData = ctime(tie)
+    splitData = timeData.split(" ")
+    times = splitData[3]
+    times = times.split(":")
+    hour = times[0]
+    minutes = times[1]
+    hour = int(hour)
+    minutes = int(minutes)
+    amount = int(input("length: "))
+    alarmMinutes = minutes + amount
+    print(alarmMinutes)
+    if alarmMinutes >= 60:
+        print("big number")
+        if alarmMinutes == 60:
+            hour = hour + 1
+        elif alarmMinutes > 60:
+            temp = alarmMinutes - 60
+            hour = hour + 1 
+            alarmMinutes = temp
+
+    f = open('alarm.txt', 'w')
+    hour = str(hour)
+    f.write(hour)
+    f.write("\n")
+    alarmMinutes = str(alarmMinutes)
+    f.write(alarmMinutes)
+    f.close()
+
+
+def checkForAlarm():
+    if os.path.isfile('alarm.txt'):
+        print ("running this check")
+        f = open('alarm.txt', 'r')
+        readfile = f.read()
+        readfile = readfile.split("\n")
+        f.close()
+        hour1 = readfile[0]
+        hour1 = int(hour1)
+        minute1 = readfile[1]
+        minute1 = int(minute1)
+        alarmTime = hour1, minute1
+        tie = time()
+        timeData = ctime(tie)
+        splitData = timeData.split(" ")
+        times = splitData[3]
+        times = times.split(":")
+        hour = times[0]
+        minutes = times[1]
+        hour = int(hour)
+        minutes = int(minutes)
+        totalTime = hour, minutes
+        print ("running this check")
+        print(minute1)
+        print(minutes)
+        if minute1 == minutes:
+            print ("compared")
+            play50()
+
+
 '''
 end of functions
 '''
@@ -523,6 +590,7 @@ def calling_assistant():
     randomCall = random.randint(0, len(calls)-1)
     randomC = calls[randomCall]
     while not running_main_loop:
+        checkForAlarm()
         print("running")
         #text = get_audio()
         text = "hello"
@@ -536,6 +604,7 @@ def calling_assistant():
 def main_loop():
     running_main_loop = True
     while running_main_loop:
+        checkForAlarm()
 
         #text = get_audio()
         text = "day"
@@ -602,3 +671,5 @@ f.close()
 
 if os.path.isfile('voice.mp3'):
     os.remove('voice.mp3')
+if os.path.isfile('alarm.txt'):
+    os.remove('alarm.txt')
